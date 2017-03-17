@@ -5,7 +5,6 @@ namespace backend\controllers;
 use Yii;
 use backend\models\Blog;
 use backend\models\BlogSearch;
-use yii\db\Query;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -66,12 +65,9 @@ class BlogController extends Controller
     {
         $model = new Blog();
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if($model->save(false)){
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            print_r($model->errors);
             return $this->render('create', [
                 'model' => $model,
             ]);

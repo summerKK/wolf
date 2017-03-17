@@ -8,7 +8,7 @@ use yii\data\ActiveDataProvider;
 use backend\models\Blog;
 
 /**
- * BlogSearch represents the model behind the search form about `common\models\Blog`.
+ * BlogSearch represents the model behind the search form about `backend\models\Blog`.
  */
 class BlogSearch extends Blog
 {
@@ -18,8 +18,8 @@ class BlogSearch extends Blog
     public function rules()
     {
         return [
-            [['id', 'create_time', 'update_time'], 'integer'],
-            [['title', 'content'], 'safe'],
+            [['id', 'views', 'is_delete'], 'integer'],
+            [['title', 'content', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -60,8 +60,10 @@ class BlogSearch extends Blog
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'create_time' => $this->create_time,
-            'update_time' => $this->update_time,
+            'views' => $this->views,
+            'is_delete' => $this->is_delete,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])

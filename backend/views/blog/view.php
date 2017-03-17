@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Blog */
+/* @var $model backend\models\Blog */
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Blogs', 'url' => ['index']];
@@ -31,8 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'title',
             'content:ntext',
-            'create_time:datetime',
-            'update_time:datetime',
+            'views',
+            'is_delete',
+            'created_at',
+            'updated_at',
         ],
     ]) ?>
 

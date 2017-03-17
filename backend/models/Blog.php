@@ -2,10 +2,7 @@
 
 namespace backend\models;
 
-use common\models\Blog as CBlog;
 use Yii;
-use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "blog".
@@ -13,10 +10,12 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property string $title
  * @property string $content
- * @property integer $create_time
- * @property integer $update_time
+ * @property integer $views
+ * @property integer $is_delete
+ * @property string $created_at
+ * @property string $updated_at
  */
-class Blog extends CBlog
+class Blog extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
@@ -29,29 +28,14 @@ class Blog extends CBlog
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
-        return [
-            [
-                'class' => TimestampBehavior::className(),
-                'attributes' => array(
-                    ActiveRecord::EVENT_BEFORE_INSERT => array('create_time', 'update_time'),
-                    ActiveRecord::EVENT_BEFORE_UPDATE => array('update_time'),
-                ),
-            ]
-
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [
+            [['id', 'content', 'created_at', 'updated_at'], 'required'],
+            [['id', 'views', 'is_delete'], 'integer'],
             [['content'], 'string'],
+            [['created_at', 'updated_at'], 'safe'],
             [['title'], 'string', 'max' => 100],
-            ['title', 'required', 'message' => '请输入标题']
         ];
     }
 
@@ -61,11 +45,13 @@ class Blog extends CBlog
     public function attributeLabels()
     {
         return [
-            'id'          => 'ID',
-            'title'       => '标题',
-            'content'     => '内容',
-            'create_time' => '修改时间',
-            'update_time' => '更新时间',
+            'id' => 'ID',
+            'title' => 'Title',
+            'content' => 'Content',
+            'views' => 'Views',
+            'is_delete' => 'Is Delete',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
         ];
     }
 }
