@@ -2,10 +2,12 @@
 
 namespace backend\controllers;
 
+use backend\components\AccessControl;
 use Yii;
 use backend\models\Blog;
 use backend\models\BlogSearch;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -26,6 +28,7 @@ class BlogController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'AccessControl' =>AccessControl::className(),
         ];
     }
 
@@ -35,6 +38,10 @@ class BlogController extends Controller
      */
     public function actionIndex()
     {
+
+        if(!Yii::$app->user->can('/blog/index')){
+            throw new ForbiddenHttpException('you don\'t have promise to access');
+        }
         $searchModel = new BlogSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

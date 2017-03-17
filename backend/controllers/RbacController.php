@@ -25,4 +25,26 @@ class RbacController extends Controller
         $auth->assign($blogManager, 1);
     }
 
+    public function actionInit2()
+    {
+        //view,create,update,delete
+        $auth = Yii::$app->authManager;
+        $blogView = $auth->createPermission('/post/view');
+        $auth->add($blogView);
+        $blogCreate = $auth->createPermission('/post/create');
+        $auth->add($blogCreate);
+        $blogUpdate = $auth->createPermission('/post/update');
+        $auth->add($blogUpdate);
+        $blogDelete = $auth->createPermission('/post/delete');
+        $auth->add($blogDelete);
+
+        $blogManager = $auth->getRole('博客管理');
+        $auth->addChild($blogManager, $blogView);
+        $auth->addChild($blogManager, $blogCreate);
+        $auth->addChild($blogManager, $blogUpdate);
+        $auth->addChild($blogManager, $blogDelete);
+
+
+    }
+
 }
