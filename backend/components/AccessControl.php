@@ -22,10 +22,8 @@ class AccessControl extends ActionFilter
     public function beforeAction($action)
     {
         //当前路由
-        $actionId = Yii::$app->request->scriptUrl;
-        $m = Yii::$app->controller->id;
-        $a = Yii::$app->controller->action->id;
-        $actionId = '/' . $m . '/' . $a;
+        $currentAction = $action->getUniqueId();
+        $currentAction = '/' . $currentAction;
 
         //当前登录的用户
         $user = Yii::$app->getUser();
@@ -43,7 +41,7 @@ class AccessControl extends ActionFilter
         }
 
         //判断当前用户是否有权限访问正在请求的路由
-        if (in_array($actionId, $routes)) {
+        if (in_array($currentAction, $routes)) {
             return true;
         }
 
