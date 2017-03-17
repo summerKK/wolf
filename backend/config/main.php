@@ -16,11 +16,11 @@ return [
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],
-        'user' => [
-            'identityClass' => 'common\models\User',
-            'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
-        ],
+//        'user' => [
+//            'identityClass' => 'common\models\User',
+//            'enableAutoLogin' => true,
+//            'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
+//        ],
         'user' => [
             'identityClass' => 'backend\models\UserBackend',
             'enableAutoLogin' => true,
