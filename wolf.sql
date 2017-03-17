@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 本地连接
+Source Server         : localhost
 Source Server Version : 50547
-Source Host           : localhost:3306
+Source Host           : 127.0.0.1:3306
 Source Database       : wolf
 
 Target Server Type    : MYSQL
 Target Server Version : 50547
 File Encoding         : 65001
 
-Date: 2017-03-17 20:07:37
+Date: 2017-03-18 01:44:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,6 +30,9 @@ CREATE TABLE `auth_assignment` (
 -- ----------------------------
 -- Records of auth_assignment
 -- ----------------------------
+INSERT INTO `auth_assignment` VALUES ('博客管理', '1', '1489760074');
+INSERT INTO `auth_assignment` VALUES ('权限管理', '1', '1489768184');
+INSERT INTO `auth_assignment` VALUES ('管理员权限', '1', '1489768183');
 
 -- ----------------------------
 -- Table structure for auth_item
@@ -52,6 +55,103 @@ CREATE TABLE `auth_item` (
 -- ----------------------------
 -- Records of auth_item
 -- ----------------------------
+INSERT INTO `auth_item` VALUES ('/*', '2', null, null, null, '1489771080', '1489771080');
+INSERT INTO `auth_item` VALUES ('/admin/*', '2', null, null, null, '1489767907', '1489767907');
+INSERT INTO `auth_item` VALUES ('/admin/assignment/*', '2', null, null, null, '1489771077', '1489771077');
+INSERT INTO `auth_item` VALUES ('/admin/assignment/assign', '2', null, null, null, '1489771077', '1489771077');
+INSERT INTO `auth_item` VALUES ('/admin/assignment/index', '2', null, null, null, '1489771077', '1489771077');
+INSERT INTO `auth_item` VALUES ('/admin/assignment/revoke', '2', null, null, null, '1489771077', '1489771077');
+INSERT INTO `auth_item` VALUES ('/admin/assignment/view', '2', null, null, null, '1489771077', '1489771077');
+INSERT INTO `auth_item` VALUES ('/admin/default/*', '2', null, null, null, '1489771077', '1489771077');
+INSERT INTO `auth_item` VALUES ('/admin/default/index', '2', null, null, null, '1489771077', '1489771077');
+INSERT INTO `auth_item` VALUES ('/admin/menu/*', '2', null, null, null, '1489771077', '1489771077');
+INSERT INTO `auth_item` VALUES ('/admin/menu/create', '2', null, null, null, '1489771077', '1489771077');
+INSERT INTO `auth_item` VALUES ('/admin/menu/delete', '2', null, null, null, '1489771077', '1489771077');
+INSERT INTO `auth_item` VALUES ('/admin/menu/index', '2', null, null, null, '1489769955', '1489769955');
+INSERT INTO `auth_item` VALUES ('/admin/menu/update', '2', null, null, null, '1489771077', '1489771077');
+INSERT INTO `auth_item` VALUES ('/admin/menu/view', '2', null, null, null, '1489771077', '1489771077');
+INSERT INTO `auth_item` VALUES ('/admin/permission/*', '2', null, null, null, '1489771077', '1489771077');
+INSERT INTO `auth_item` VALUES ('/admin/permission/assign', '2', null, null, null, '1489771077', '1489771077');
+INSERT INTO `auth_item` VALUES ('/admin/permission/create', '2', null, null, null, '1489771077', '1489771077');
+INSERT INTO `auth_item` VALUES ('/admin/permission/delete', '2', null, null, null, '1489771077', '1489771077');
+INSERT INTO `auth_item` VALUES ('/admin/permission/index', '2', null, null, null, '1489771077', '1489771077');
+INSERT INTO `auth_item` VALUES ('/admin/permission/remove', '2', null, null, null, '1489771077', '1489771077');
+INSERT INTO `auth_item` VALUES ('/admin/permission/update', '2', null, null, null, '1489771077', '1489771077');
+INSERT INTO `auth_item` VALUES ('/admin/permission/view', '2', null, null, null, '1489771077', '1489771077');
+INSERT INTO `auth_item` VALUES ('/admin/role/*', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/admin/role/assign', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/admin/role/create', '2', null, null, null, '1489771077', '1489771077');
+INSERT INTO `auth_item` VALUES ('/admin/role/delete', '2', null, null, null, '1489771077', '1489771077');
+INSERT INTO `auth_item` VALUES ('/admin/role/index', '2', null, null, null, '1489771077', '1489771077');
+INSERT INTO `auth_item` VALUES ('/admin/role/remove', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/admin/role/update', '2', null, null, null, '1489771077', '1489771077');
+INSERT INTO `auth_item` VALUES ('/admin/role/view', '2', null, null, null, '1489771077', '1489771077');
+INSERT INTO `auth_item` VALUES ('/admin/route/*', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/admin/route/assign', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/admin/route/create', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/admin/route/index', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/admin/route/refresh', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/admin/route/remove', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/admin/rule/*', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/admin/rule/create', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/admin/rule/delete', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/admin/rule/index', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/admin/rule/update', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/admin/rule/view', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/admin/user/*', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/admin/user/activate', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/admin/user/change-password', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/admin/user/delete', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/admin/user/index', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/admin/user/login', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/admin/user/logout', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/admin/user/request-password-reset', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/admin/user/reset-password', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/admin/user/signup', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/admin/user/view', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/blog/*', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/blog/create', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/blog/delete', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/blog/index', '2', '博客列表', null, null, '1489760074', '1489760074');
+INSERT INTO `auth_item` VALUES ('/blog/update', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/blog/view', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/debug/*', '2', null, null, null, '1489769190', '1489769190');
+INSERT INTO `auth_item` VALUES ('/debug/default/*', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/debug/default/db-explain', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/debug/default/download-mail', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/debug/default/index', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/debug/default/toolbar', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/debug/default/view', '2', null, null, null, '1489771078', '1489771078');
+INSERT INTO `auth_item` VALUES ('/gii/*', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/gii/default/*', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/gii/default/action', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/gii/default/diff', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/gii/default/index', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/gii/default/preview', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/gii/default/view', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/post/create', '2', null, null, null, '1489762310', '1489762310');
+INSERT INTO `auth_item` VALUES ('/post/delete', '2', null, null, null, '1489762312', '1489762312');
+INSERT INTO `auth_item` VALUES ('/post/update', '2', null, null, null, '1489762310', '1489762310');
+INSERT INTO `auth_item` VALUES ('/post/view', '2', null, null, null, '1489762310', '1489762310');
+INSERT INTO `auth_item` VALUES ('/rbac/*', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/rbac/init', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/rbac/init2', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/site/*', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/site/captcha', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/site/error', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/site/index', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/site/login', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/site/logout', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/user-backend/*', '2', null, null, null, '1489771080', '1489771080');
+INSERT INTO `auth_item` VALUES ('/user-backend/create', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/user-backend/delete', '2', null, null, null, '1489771080', '1489771080');
+INSERT INTO `auth_item` VALUES ('/user-backend/index', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/user-backend/signup', '2', null, null, null, '1489771080', '1489771080');
+INSERT INTO `auth_item` VALUES ('/user-backend/update', '2', null, null, null, '1489771080', '1489771080');
+INSERT INTO `auth_item` VALUES ('/user-backend/view', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('博客管理', '1', null, null, null, '1489760074', '1489760074');
+INSERT INTO `auth_item` VALUES ('权限管理', '2', '权限管理', null, null, '1489767986', '1489767986');
+INSERT INTO `auth_item` VALUES ('管理员权限', '1', '网站最高权限', null, null, '1489768091', '1489768091');
 
 -- ----------------------------
 -- Table structure for auth_item_child
@@ -69,6 +169,108 @@ CREATE TABLE `auth_item_child` (
 -- ----------------------------
 -- Records of auth_item_child
 -- ----------------------------
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/*');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/*');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/assignment/*');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/assignment/assign');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/assignment/index');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/assignment/revoke');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/assignment/view');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/default/*');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/default/index');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/menu/*');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/menu/create');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/menu/delete');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/menu/index');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/menu/update');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/menu/view');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/permission/*');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/permission/assign');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/permission/create');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/permission/delete');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/permission/index');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/permission/remove');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/permission/update');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/permission/view');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/role/*');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/role/assign');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/role/create');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/role/delete');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/role/index');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/role/remove');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/role/update');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/role/view');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/route/*');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/route/assign');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/route/create');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/route/index');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/route/refresh');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/route/remove');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/rule/*');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/rule/create');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/rule/delete');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/rule/index');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/rule/update');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/rule/view');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/user/*');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/user/activate');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/user/change-password');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/user/delete');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/user/index');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/user/login');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/user/logout');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/user/request-password-reset');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/user/reset-password');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/user/signup');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/admin/user/view');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/blog/*');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/blog/create');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/blog/delete');
+INSERT INTO `auth_item_child` VALUES ('博客管理', '/blog/index');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/blog/index');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/blog/update');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/blog/view');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/debug/*');
+INSERT INTO `auth_item_child` VALUES ('管理员权限', '/debug/*');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/debug/default/*');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/debug/default/db-explain');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/debug/default/download-mail');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/debug/default/index');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/debug/default/toolbar');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/debug/default/view');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/gii/*');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/gii/default/*');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/gii/default/action');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/gii/default/diff');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/gii/default/index');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/gii/default/preview');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/gii/default/view');
+INSERT INTO `auth_item_child` VALUES ('博客管理', '/post/create');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/post/create');
+INSERT INTO `auth_item_child` VALUES ('博客管理', '/post/delete');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/post/delete');
+INSERT INTO `auth_item_child` VALUES ('博客管理', '/post/update');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/post/update');
+INSERT INTO `auth_item_child` VALUES ('博客管理', '/post/view');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/post/view');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/rbac/*');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/rbac/init');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/rbac/init2');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/site/*');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/site/captcha');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/site/error');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/site/index');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/site/login');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/site/logout');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/user-backend/*');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/user-backend/create');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/user-backend/delete');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/user-backend/index');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/user-backend/signup');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/user-backend/update');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/user-backend/view');
+INSERT INTO `auth_item_child` VALUES ('管理员权限', '博客管理');
+INSERT INTO `auth_item_child` VALUES ('管理员权限', '权限管理');
 
 -- ----------------------------
 -- Table structure for auth_rule
@@ -106,6 +308,30 @@ CREATE TABLE `blog` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for menu
+-- ----------------------------
+DROP TABLE IF EXISTS `menu`;
+CREATE TABLE `menu` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) NOT NULL,
+  `parent` int(11) DEFAULT NULL,
+  `route` varchar(255) DEFAULT NULL,
+  `order` int(11) DEFAULT NULL,
+  `data` blob,
+  PRIMARY KEY (`id`),
+  KEY `parent` (`parent`),
+  CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `menu` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of menu
+-- ----------------------------
+INSERT INTO `menu` VALUES ('8', '菜单', null, null, '1', null);
+INSERT INTO `menu` VALUES ('9', '权限控制', null, null, '2', null);
+INSERT INTO `menu` VALUES ('10', '权限设置', '9', '/post/create', null, null);
+INSERT INTO `menu` VALUES ('11', '权限查看', '9', '/blog/view', null, null);
+
+-- ----------------------------
 -- Table structure for migration
 -- ----------------------------
 DROP TABLE IF EXISTS `migration`;
@@ -122,6 +348,7 @@ INSERT INTO `migration` VALUES ('m000000_000000_base', '1489643942');
 INSERT INTO `migration` VALUES ('m130524_201442_init', '1489643948');
 INSERT INTO `migration` VALUES ('m170316_055548_create_blog_table', '1489643948');
 INSERT INTO `migration` VALUES ('m140506_102106_rbac_init', '1489750049');
+INSERT INTO `migration` VALUES ('m140602_111327_create_menu_table', '1489768852');
 
 -- ----------------------------
 -- Table structure for user
