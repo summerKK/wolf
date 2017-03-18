@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
+Source Server         : 本地连接
 Source Server Version : 50547
-Source Host           : 127.0.0.1:3306
+Source Host           : localhost:3306
 Source Database       : wolf
 
 Target Server Type    : MYSQL
 Target Server Version : 50547
 File Encoding         : 65001
 
-Date: 2017-03-18 01:44:27
+Date: 2017-03-18 19:46:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -115,6 +115,12 @@ INSERT INTO `auth_item` VALUES ('/blog/delete', '2', null, null, null, '14897710
 INSERT INTO `auth_item` VALUES ('/blog/index', '2', '博客列表', null, null, '1489760074', '1489760074');
 INSERT INTO `auth_item` VALUES ('/blog/update', '2', null, null, null, '1489771079', '1489771079');
 INSERT INTO `auth_item` VALUES ('/blog/view', '2', null, null, null, '1489771079', '1489771079');
+INSERT INTO `auth_item` VALUES ('/category/*', '2', null, null, null, '1489835477', '1489835477');
+INSERT INTO `auth_item` VALUES ('/category/create', '2', null, null, null, '1489835477', '1489835477');
+INSERT INTO `auth_item` VALUES ('/category/delete', '2', null, null, null, '1489835477', '1489835477');
+INSERT INTO `auth_item` VALUES ('/category/index', '2', null, null, null, '1489835477', '1489835477');
+INSERT INTO `auth_item` VALUES ('/category/update', '2', null, null, null, '1489835477', '1489835477');
+INSERT INTO `auth_item` VALUES ('/category/view', '2', null, null, null, '1489835477', '1489835477');
 INSERT INTO `auth_item` VALUES ('/debug/*', '2', null, null, null, '1489769190', '1489769190');
 INSERT INTO `auth_item` VALUES ('/debug/default/*', '2', null, null, null, '1489771079', '1489771079');
 INSERT INTO `auth_item` VALUES ('/debug/default/db-explain', '2', null, null, null, '1489771078', '1489771078');
@@ -230,6 +236,12 @@ INSERT INTO `auth_item_child` VALUES ('博客管理', '/blog/index');
 INSERT INTO `auth_item_child` VALUES ('权限管理', '/blog/index');
 INSERT INTO `auth_item_child` VALUES ('权限管理', '/blog/update');
 INSERT INTO `auth_item_child` VALUES ('权限管理', '/blog/view');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/category/*');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/category/create');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/category/delete');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/category/index');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/category/update');
+INSERT INTO `auth_item_child` VALUES ('权限管理', '/category/view');
 INSERT INTO `auth_item_child` VALUES ('权限管理', '/debug/*');
 INSERT INTO `auth_item_child` VALUES ('管理员权限', '/debug/*');
 INSERT INTO `auth_item_child` VALUES ('权限管理', '/debug/default/*');
@@ -308,6 +320,36 @@ CREATE TABLE `blog` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for blog_category
+-- ----------------------------
+DROP TABLE IF EXISTS `blog_category`;
+CREATE TABLE `blog_category` (
+  `blog_id` int(11) NOT NULL COMMENT '文章ID',
+  `category_id` int(11) NOT NULL COMMENT '栏目ID',
+  KEY `blog_id` (`blog_id`),
+  KEY `category_id` (`category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文章-栏目关联表';
+
+-- ----------------------------
+-- Records of blog_category
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for category
+-- ----------------------------
+DROP TABLE IF EXISTS `category`;
+CREATE TABLE `category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '栏目ID',
+  `name` varchar(20) NOT NULL DEFAULT '' COMMENT '栏目名',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='栏目枚举表';
+
+-- ----------------------------
+-- Records of category
+-- ----------------------------
+INSERT INTO `category` VALUES ('1', 'summer');
+
+-- ----------------------------
 -- Table structure for menu
 -- ----------------------------
 DROP TABLE IF EXISTS `menu`;
@@ -321,15 +363,24 @@ CREATE TABLE `menu` (
   PRIMARY KEY (`id`),
   KEY `parent` (`parent`),
   CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `menu` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
-INSERT INTO `menu` VALUES ('8', '菜单', null, null, '1', null);
-INSERT INTO `menu` VALUES ('9', '权限控制', null, null, '2', null);
-INSERT INTO `menu` VALUES ('10', '权限设置', '9', '/post/create', null, null);
-INSERT INTO `menu` VALUES ('11', '权限查看', '9', '/blog/view', null, null);
+INSERT INTO `menu` VALUES ('12', 'Same tools', null, null, '5', 0x7B2269636F6E223A202266612066612D7368617265222C202276697369626C65223A20747275657D);
+INSERT INTO `menu` VALUES ('13', 'Gii', '12', '/gii/default/index', null, 0x7B2269636F6E223A202266612066612D66696C652D636F64652D6F222C202276697369626C65223A20747275657D);
+INSERT INTO `menu` VALUES ('14', 'Debug', '12', '/debug/default/index', null, 0x7B2269636F6E223A202266612066612D64617368626F617264222C202276697369626C65223A20747275657D);
+INSERT INTO `menu` VALUES ('15', '菜单管理', null, null, '1', null);
+INSERT INTO `menu` VALUES ('16', '创建菜单', '15', '/admin/menu/create', null, null);
+INSERT INTO `menu` VALUES ('17', '菜单列表', '15', '/admin/menu/index', '1', null);
+INSERT INTO `menu` VALUES ('18', '权限管理', null, null, null, null);
+INSERT INTO `menu` VALUES ('19', '权限列表', '18', '/admin/permission/index', null, null);
+INSERT INTO `menu` VALUES ('20', '创建权限', '18', '/admin/permission/create', null, null);
+INSERT INTO `menu` VALUES ('21', '路由列表', '18', '/admin/route/index', null, null);
+INSERT INTO `menu` VALUES ('22', '角色列表', '18', '/admin/role/index', null, null);
+INSERT INTO `menu` VALUES ('23', '文章管理', null, null, null, null);
+INSERT INTO `menu` VALUES ('24', '栏目管理', '23', '/category/index', null, null);
 
 -- ----------------------------
 -- Table structure for migration
