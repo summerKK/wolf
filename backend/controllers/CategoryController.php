@@ -92,9 +92,13 @@ class CategoryController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+//            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
-            return $this->render('update', [
+//            return $this->render('update', [
+//                'model' => $model,
+//            ]);
+            return $this->renderAjax('update', [
                 'model' => $model,
             ]);
         }
@@ -132,12 +136,13 @@ class CategoryController extends Controller
     /**
      * 异步校验表单模型
      */
-    public function actionValidateForm ()
+    public function actionValidateForm()
     {
         // 注意这里实例化是你对应的model
         $model = new Category();
         $model->load(Yii::$app->request->post());
         Yii::$app->response->format = Response::FORMAT_JSON;
+
         return ActiveForm::validate($model);
     }
 }
