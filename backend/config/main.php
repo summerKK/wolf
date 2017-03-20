@@ -17,7 +17,7 @@ return [
             'class' => 'mdm\admin\Module',
         ],
     ],
-    'aliases' => [
+    'aliases'             => [
         '@mdm/admin' => '@vendor/mdmsoft/yii2-admin',
     ],
     'components'          => [
@@ -62,18 +62,31 @@ return [
                 ],
             ],
         ],
-        'authManager' => [
-            'class' => 'yii\rbac\DbManager',
+        'authManager'  => [
+            'class'        => 'yii\rbac\DbManager',
             'defaultRoles' => ['guest'],
         ],
+        'view'         => [
+            'theme' => [
+                'pathMap' => [
+                    '@app/views' => [
+                        '@app/themes/christmas',
+                        '@app/themes/spring',
+                    ],
+                ],
+            ],
+        ],
     ],
-    'as access' => [
-        'class' => 'mdm\admin\components\AccessControl',
+    'as access'           => [
+        'class'        => 'mdm\admin\components\AccessControl',
         'allowActions' => [
             //这里是允许访问的action
             //controller/action
-            'site/*'
-        ]
+            'site/*',
+        ],
+    ],
+    'as theme'            => [
+        'class' => 'backend\components\ThemeControl',
     ],
     'params'              => $params,
 ];

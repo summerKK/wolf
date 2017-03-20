@@ -2,8 +2,7 @@
 
 use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
-use yii\bootstrap\modal;
-use yii\helpers\Url;
+
 
 /* @var $this yii\web\View */
 /* @var $generator yii\gii\generators\crud\Generator */
@@ -15,6 +14,8 @@ echo "<?php\n";
 ?>
 
 use yii\helpers\Html;
+use yii\bootstrap\modal;
+use yii\helpers\Url;
 use <?= $generator->indexWidgetType === 'grid' ? "yii\\grid\\GridView" : "yii\\widgets\\ListView" ?>;
 <?= $generator->enablePjax ? 'use yii\widgets\Pjax;' : '' ?>
 

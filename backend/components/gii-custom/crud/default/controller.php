@@ -126,7 +126,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
         $model = $this->findModel(<?= $actionParams ?>);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(Url::toRoute['index']);
+            return $this->redirect(Url::toRoute(['index']));
         } else {
             return $this->render('update', [
                 'model' => $model,
