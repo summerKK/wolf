@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50547
 File Encoding         : 65001
 
-Date: 2017-03-18 19:46:19
+Date: 2017-03-21 17:35:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -305,7 +305,7 @@ CREATE TABLE `auth_rule` (
 -- ----------------------------
 DROP TABLE IF EXISTS `blog`;
 CREATE TABLE `blog` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL DEFAULT '' COMMENT '标题',
   `content` text NOT NULL COMMENT '内容',
   `views` int(11) NOT NULL DEFAULT '0' COMMENT '点击量',
@@ -313,11 +313,16 @@ CREATE TABLE `blog` (
   `created_at` datetime NOT NULL COMMENT '添加时间',
   `updated_at` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of blog
 -- ----------------------------
+INSERT INTO `blog` VALUES ('1', 'summer', 'summer', '11', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `blog` VALUES ('2', 'summer', 'summer', '12', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `blog` VALUES ('3', 'summer', 'summer', '12', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `blog` VALUES ('4', 'summer', 'summer', '1212', '2', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `blog` VALUES ('5', 'summer', 'summer', '123', '1', '2017-03-21 13:24:01', '2017-03-21 13:24:01');
 
 -- ----------------------------
 -- Table structure for blog_category
@@ -333,6 +338,13 @@ CREATE TABLE `blog_category` (
 -- ----------------------------
 -- Records of blog_category
 -- ----------------------------
+INSERT INTO `blog_category` VALUES ('1', '1');
+INSERT INTO `blog_category` VALUES ('1', '1');
+INSERT INTO `blog_category` VALUES ('3', '1');
+INSERT INTO `blog_category` VALUES ('3', '2');
+INSERT INTO `blog_category` VALUES ('4', '2');
+INSERT INTO `blog_category` VALUES ('5', '1');
+INSERT INTO `blog_category` VALUES ('5', '2');
 
 -- ----------------------------
 -- Table structure for category
@@ -342,12 +354,13 @@ CREATE TABLE `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '栏目ID',
   `name` varchar(20) NOT NULL DEFAULT '' COMMENT '栏目名',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='栏目枚举表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='栏目枚举表';
 
 -- ----------------------------
 -- Records of category
 -- ----------------------------
 INSERT INTO `category` VALUES ('1', 'summer');
+INSERT INTO `category` VALUES ('2', 'danny');
 
 -- ----------------------------
 -- Table structure for menu
@@ -400,6 +413,20 @@ INSERT INTO `migration` VALUES ('m130524_201442_init', '1489643948');
 INSERT INTO `migration` VALUES ('m170316_055548_create_blog_table', '1489643948');
 INSERT INTO `migration` VALUES ('m140506_102106_rbac_init', '1489750049');
 INSERT INTO `migration` VALUES ('m140602_111327_create_menu_table', '1489768852');
+
+-- ----------------------------
+-- Table structure for test
+-- ----------------------------
+DROP TABLE IF EXISTS `test`;
+CREATE TABLE `test` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of test
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for user
