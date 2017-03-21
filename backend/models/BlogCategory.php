@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "blog_category".
@@ -37,8 +38,14 @@ class BlogCategory extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'blog_id' => 'Blog ID',
+            'blog_id'     => 'Blog ID',
             'category_id' => 'Category ID',
         ];
+    }
+
+    public static function getRelationCategorys($blogID)
+    {
+        $res = static::find()->select('category_id')->where(['blog_id'=>$blogID])->all();
+        return $res ? ArrayHelper::getColumn($res, 'category_id') : [];
     }
 }

@@ -3,9 +3,11 @@
 namespace backend\controllers;
 
 use backend\components\AccessControl;
+use backend\models\BlogCategory;
 use Yii;
 use backend\models\Blog;
 use backend\models\BlogSearch;
+use yii\base\Exception;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
@@ -22,13 +24,13 @@ class BlogController extends Controller
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
+            'verbs'         => [
+                'class'   => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
             ],
-            'AccessControl' =>AccessControl::className(),
+            'AccessControl' => AccessControl::className(),
         ];
     }
 
@@ -39,14 +41,14 @@ class BlogController extends Controller
     public function actionIndex()
     {
 
-        if(!Yii::$app->user->can('/blog/index')){
+        if (!Yii::$app->user->can('/blog/index')) {
             throw new ForbiddenHttpException('you don\'t have promise to access');
         }
         $searchModel = new BlogSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -72,8 +74,28 @@ class BlogController extends Controller
     {
         $model = new Blog();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+
+                $model->save(false);
+                $blogId = $model->id;
+                $data = [];
+                foreach ($model->category as $k => $v) {
+                    $data[] = [$blogId, $v];
+                }
+                $blogCategory = new BlogCategory();
+                $attributes = array_keys($blogCategory->getAttributes());
+                $tableName = $blogCategory::tableName();
+                Yii::$app->db->createCommand()->batchInsert($tableName, $attributes, $data)->execute();
+                $transaction->commit();
+
+                return $this->redirect(['index']);
+            } catch (Exception $e) {
+                $transaction->rollBack();
+                throw $e;
+            }
+
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -90,7 +112,7 @@ class BlogController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $model->category = BlogCategory::getRelationCategorys($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {

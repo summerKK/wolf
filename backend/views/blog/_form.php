@@ -1,5 +1,7 @@
 <?php
 
+use backend\models\Blog;
+use backend\models\Category;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,22 +14,18 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id')->textInput() ?>
-
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'views')->textInput() ?>
 
-    <?= $form->field($model, 'is_delete')->textInput() ?>
+    <?= $form->field($model, 'is_delete')->dropDownList(Blog::dropDownList(),['prompt'=>'select..']) ?>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
+    <?= $form->field($model, 'category')->label('栏目')->checkboxList(Category::dropDownList()) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? '创建' : '更新', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
