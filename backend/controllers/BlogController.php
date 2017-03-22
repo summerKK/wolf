@@ -113,8 +113,33 @@ class BlogController extends Controller
     {
         $model = $this->findModel($id);
         $model->category = BlogCategory::getRelationCategorys($id);
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $model->save(false);
+                $blogID = $model->id;
+                $data = [];
+                foreach ($model->category as $k => $v) {
+                    $data[] = [$blogID,$v];
+                }
+                $blogCategory = new BlogCategory();
+                $attributes = array_keys($blogCategory->getAttributes());
+                $tableName = $blogCategory::tableName();
+
+                $sql = "DELETE FROM {$tableName} WHERE blog_id = {$blogID}";
+                Yii::$app->db->createCommand($sql)->execute();
+
+                Yii::$app->db->createCommand()->batchInsert($tableName, $attributes, $data)->execute();
+                
+                $transaction->commit();
+                
+                return $this->redirect(['view','id'=>$model->id]);
+
+            } catch (Exception $e) {
+                $transaction->rollBack();
+                throw $e;
+            }
+
         } else {
             return $this->render('update', [
                 'model' => $model,

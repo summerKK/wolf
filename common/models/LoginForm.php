@@ -3,6 +3,7 @@ namespace common\models;
 
 use Yii;
 use yii\base\Model;
+use yii\web\User;
 
 /**
  * Login form
@@ -56,10 +57,19 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
+            Yii::$app->on(yii\web\User::EVENT_AFTER_LOGIN, [$this, 'onAfterLogin']);
+
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         } else {
             return false;
         }
+    }
+
+    public function onAfterLogin($event)
+    {
+        $identity = $event->identity;
+        $date = date('Y-m-d');
+        Yii::info("id={$identity->id}的用户最后一次登录时间为{$date}");
     }
 
     /**

@@ -25,13 +25,13 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['username', 'password','verifyCode'], 'required'],
+            [['username', 'password', 'verifyCode'], 'required'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
             // captcha
-            ['verifyCode', 'captcha']
+            ['verifyCode', 'captcha'],
         ];
     }
 
@@ -60,10 +60,19 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
+            Yii::$app->user->on(yii\web\User::EVENT_AFTER_LOGIN, [$this, 'onAfterLogin']);
+
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         } else {
             return false;
         }
+    }
+
+    public function onAfterLogin($event)
+    {
+        $identity = $event->identity;
+        $date = date('Y-m-d');
+        Yii::info("id={$identity->id}用户最后一次登录时间为{$date}");
     }
 
     /**
