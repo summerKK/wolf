@@ -7,14 +7,13 @@ $params = array_merge(
 );
 
 return [
-    'id'                  => 'app-backend',
+    'id'                  => 'app-api',
     'basePath'            => dirname(__DIR__),
-    'controllerNamespace' => 'backend\controllers',
+    'controllerNamespace' => 'api\controllers',
     'bootstrap'           => ['log'],
     'modules'             => [
-        //yii2-admin 插件配置
-        'admin' => [
-            'class' => 'mdm\admin\Module',
+        'v1' => [
+            'class' => 'api\modules\v1\Module',
         ],
     ],
     'aliases'             => [
@@ -24,18 +23,14 @@ return [
         'request'      => [
             'csrfParam' => '_csrf-backend',
         ],
-//        'user' => [
-//            'identityClass' => 'common\models\User',
-//            'enableAutoLogin' => true,
-//            'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
-//        ],
         'user'         => [
-            'identityClass'   => 'backend\models\UserBackend',
+            'identityClass'   => 'common\models\User',
             'enableAutoLogin' => true,
+            'enableSession'   => false,
         ],
         'session'      => [
             // this is the name of the session cookie used for login on the backend
-            'name' => 'advanced-backend',
+            'name' => 'advanced-api',
         ],
         'log'          => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -46,19 +41,27 @@ return [
                 ],
             ],
         ],
-        'errorHandler' => [
-            'errorAction' => 'site/error',
-        ],
         'urlManager'   => [
             'enablePrettyUrl'     => true,
             'showScriptName'      => false,
             'enableStrictParsing' => true,
-//            'suffix'              => '.html',
             'rules'               => [
-//                '/blogs/<id:\d+>'                        => '/blog/view',
-                '<controller:\w+>/<action:\w+>/<page:\d+>' => '<controller>/<action>',
-                '<controller:\w+>/<action:\w+>'            => '<controller>/<action>',
-                '<controller:\w+>/<id:\d+>'                => '<controller>/view',
+                [
+                    'class'         => 'yii\rest\UrlRule',
+                    'pluralize'     => false,
+                    'controller'    => [
+                        'v1/user',
+                        'v1/goods',
+                        'v1/test'
+                    ],
+                    'extraPatterns' => [
+                        'POST login'      => 'login',
+                        'GET signup-test' => 'signup-test',
+                    ],
+
+                ],
+                'GET v1/<controller:\w+>/<action:\w+>'=>'v1/<controller>/<action>',
+                'GET v1/test/view/<id:\d+>' => 'v1/test/view',
             ],
         ],
         'assetManager' => [
@@ -88,7 +91,7 @@ return [
         'allowActions' => [
             //这里是允许访问的action
             //controller/action
-            'site/*',
+            '*',
         ],
     ],
     'as theme'            => [

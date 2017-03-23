@@ -46,7 +46,11 @@ class BlogSearch extends Blog
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+            'query'      => $query,
+            'pagination' => [
+                'pageSize' => 2,
+                'pageSizeParam' => false,
+            ],
         ]);
 
         $this->load($params);
@@ -59,9 +63,9 @@ class BlogSearch extends Blog
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'views' => $this->views,
-            'is_delete' => $this->is_delete,
+            'id'         => $this->id,
+            'views'      => $this->views,
+            'is_delete'  => $this->is_delete,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);

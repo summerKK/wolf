@@ -40,7 +40,6 @@ class BlogController extends Controller
      */
     public function actionIndex()
     {
-
         if (!Yii::$app->user->can('/blog/index')) {
             throw new ForbiddenHttpException('you don\'t have promise to access');
         }

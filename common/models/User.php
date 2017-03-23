@@ -5,6 +5,7 @@ use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\filters\RateLimitInterface;
 use yii\web\IdentityInterface;
 
 /**
@@ -19,9 +20,11 @@ use yii\web\IdentityInterface;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
+ * @property integer $allowance
+ * @property integer $allowance_updated_at
  * @property string $password write-only password
  */
-class User extends ActiveRecord implements IdentityInterface
+class User extends ActiveRecord implements IdentityInterface, RateLimitInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
@@ -69,7 +72,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+        return static::findOne(['access_token' => $token, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -97,7 +100,7 @@ class User extends ActiveRecord implements IdentityInterface
 
         return static::findOne([
             'password_reset_token' => $token,
-            'status' => self::STATUS_ACTIVE,
+            'status'               => self::STATUS_ACTIVE,
         ]);
     }
 
@@ -113,8 +116,9 @@ class User extends ActiveRecord implements IdentityInterface
             return false;
         }
 
-        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
-        $expire = Yii::$app->params['user.passwordResetTokenExpire'];
+        $timestamp = (int)substr($token, strrpos($token, '_') + 1);
+        $expire    = Yii::$app->params['user.passwordResetTokenExpire'];
+
         return $timestamp + $expire >= time();
     }
 
@@ -185,5 +189,68 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    /**
+     * Returns the maximum number of allowed requests and the window size.
+     * @param \yii\web\Request $request the current request
+     * @param \yii\base\Action $action the action to be executed
+     * @return array an array of two elements. The first element is the maximum number of allowed requests,
+     * and the second element is the size of the window in seconds.
+     */
+    public function getRateLimit($request, $action)
+    {
+        //返回某一时间允许请求的最大数量，比如设置10秒内最多5次请求（小数量方便我们模拟测试）
+        return [5, 10];
+    }
+
+    /**
+     * Loads the number of allowed requests and the corresponding timestamp from a persistent storage.
+     * @param \yii\web\Request $request the current request
+     * @param \yii\base\Action $action the action to be executed
+     * @return array an array of two elements. The first element is the number of allowed requests,
+     * and the second element is the corresponding UNIX timestamp.
+     */
+    public function loadAllowance($request, $action)
+    {
+        // 回剩余的允许的请求和相应的UNIX时间戳数 当最后一次速率限制检查时
+        return [$this->allowance, $this->allowance_updated_at];
+    }
+
+    /**
+     * Saves the number of allowed requests and the corresponding timestamp to a persistent storage.
+     * @param \yii\web\Request $request the current request
+     * @param \yii\base\Action $action the action to be executed
+     * @param int $allowance the number of allowed requests remaining.
+     * @param int $timestamp the current timestamp.
+     */
+    public function saveAllowance($request, $action, $allowance, $timestamp)
+    {
+        // 保存允许剩余的请求数和当前的UNIX时间戳
+        $this->allowance            = $allowance;
+        $this->allowance_updated_at = $timestamp;
+        $this->save();
+    }
+
+    /**
+     * 生成 api_token
+     */
+    public function generateApiToken()
+    {
+        $this->api_token = Yii::$app->security->generateRandomString() . '_' . time();
+    }
+
+    /**
+     * 校验api_token是否有效
+     */
+    public static function apiTokenIsValid($token)
+    {
+        if (empty($token)) {
+            return false;
+        }
+
+        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
+        $expire = Yii::$app->params['user.apiTokenExpire'];
+        return $timestamp + $expire >= time();
     }
 }

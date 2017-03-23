@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\BlogSearch */
@@ -9,9 +10,11 @@ use yii\grid\GridView;
 
 $this->title = 'Blogs';
 $this->params['breadcrumbs'][] = $this->title;
+\backend\assets\TestAsset::register($this);
 ?>
 <div class="blog-index">
 
+    <a href="<?= Url::to(['site/index','page'=>1])?>">测试</a>
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 

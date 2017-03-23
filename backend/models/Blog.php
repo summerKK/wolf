@@ -31,6 +31,23 @@ class Blog extends \yii\db\ActiveRecord
         return 'blog';
     }
 
+    public function init()
+    {
+        parent::init();
+        $this->on(self::EVENT_BEFORE_INSERT, [$this, 'onBeforeInsert']);
+        $this->on(self::EVENT_AFTER_INSERT, [$this, 'onAfterInsert']);
+    }
+
+    public function onBeforeInsert($event)
+    {
+        Yii::info('before insert');
+    }
+
+    public function onAfterInsert($event)
+    {
+        Yii::info('after insert');
+    }
+
     /**
      * @inheritdoc
      */
@@ -49,8 +66,8 @@ class Blog extends \yii\db\ActiveRecord
     {
         return [
             [
-                'class'              => TimestampBehavior::className(),
-                'value'              => new Expression('NOW()'),
+                'class' => TimestampBehavior::className(),
+                'value' => new Expression('NOW()'),
             ],
         ];
     }
