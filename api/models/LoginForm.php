@@ -76,10 +76,10 @@ class LoginForm extends Model
      * 登录校验成功后，为用户生成新的token
      * 如果token失效，则重新生成token
      */
-    public function onGenerateApiToken ()
+    public function onGenerateAccessToken ()
     {
         if (!User::AccessTokenIsValid($this->_user->access_token)) {
-            $this->_user->generateApiToken();
+            $this->_user->generateAccessToken();
             $this->_user->save(false);
         }
     }

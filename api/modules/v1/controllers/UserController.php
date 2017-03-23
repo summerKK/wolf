@@ -2,10 +2,13 @@
 
 namespace api\modules\v1\controllers;
 
+use api\models\LoginForm;
 use common\models\User;
+use Yii;
 use yii\filters\auth\QueryParamAuth;
 use yii\helpers\ArrayHelper;
 use yii\rest\ActiveController;
+use yii\web\IdentityInterface;
 
 class UserController extends ActiveController
 {
@@ -20,10 +23,12 @@ class UserController extends ActiveController
     {
         return ArrayHelper::merge(parent::behaviors(), [
             'authenticator' => [
-                'class'    => QueryParamAuth::className(),
-                'optional' => [
+                'class'      => QueryParamAuth::className(),
+                'tokenParam' => 'token',
+                'optional'   => [
                     'login',
                     'signup-test',
+                    'user-profile',
                 ],
             ],
         ]);
@@ -32,24 +37,24 @@ class UserController extends ActiveController
     /**
      * 添加测试用户
      */
-    public function actionSignupTest ()
+    public function actionSignupTest()
     {
         $user = new User();
         $user->generateAuthKey();
         $user->setPassword('123456');
         $user->username = '1112';
-        $user->email = '111@1111.com';
+        $user->email    = '111@1111.com';
         $user->save(false);
 
         return [
-            'code' => 0
+            'code' => 0,
         ];
     }
 
     /**
      * 登录
      */
-    public function actionLogin ()
+    public function actionLogin()
     {
         $model = new LoginForm;
         $model->setAttributes(Yii::$app->request->post());
@@ -62,6 +67,16 @@ class UserController extends ActiveController
         } else {
             return $model->errors;
         }
+    }
+
+    public function actionUserProfile($token)
+    {
+        $user = User::findIdentityByAccessToken($token);
+
+        return [
+            'id'    => $user->id,
+            'email' => $user->email,
+        ];
     }
 
 }

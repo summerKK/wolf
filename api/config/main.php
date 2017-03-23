@@ -23,6 +23,18 @@ return [
         'request'      => [
             'csrfParam' => '_csrf-backend',
         ],
+        'response' => [
+            'class' => 'yii\web\Response',
+            'on beforeSend' => function ($event) {
+                $response = $event->sender;
+                $response->data = [
+                    'code' => $response->getStatusCode(),
+                    'data' => $response->data,
+                    'message' => $response->statusText
+                ];
+                $response->format = yii\web\Response::FORMAT_JSON;
+            },
+        ],
         'user'         => [
             'identityClass'   => 'common\models\User',
             'enableAutoLogin' => true,
@@ -60,7 +72,7 @@ return [
                     ],
 
                 ],
-                'GET v1/<controller:\w+>/<action:\w+>'=>'v1/<controller>/<action>',
+                'GET v1/<controller:\w+>/<action:[\w_-]+>'=>'v1/<controller>/<action>',
                 'GET v1/test/view/<id:\d+>' => 'v1/test/view',
             ],
         ],

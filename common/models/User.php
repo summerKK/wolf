@@ -72,6 +72,10 @@ class User extends ActiveRecord implements IdentityInterface, RateLimitInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
+        if(!static::AccessTokenIsValid($token)){
+            throw new \yii\web\UnauthorizedHttpException("token is invalid.");
+        }
+
         return static::findOne(['access_token' => $token, 'status' => self::STATUS_ACTIVE]);
     }
 
@@ -235,15 +239,15 @@ class User extends ActiveRecord implements IdentityInterface, RateLimitInterface
     /**
      * 生成 api_token
      */
-    public function generateApiToken()
+    public function generateAccessToken()
     {
-        $this->api_token = Yii::$app->security->generateRandomString() . '_' . time();
+        $this->access_token = Yii::$app->security->generateRandomString() . '_' . time();
     }
 
     /**
      * 校验api_token是否有效
      */
-    public static function apiTokenIsValid($token)
+    public static function AccessTokenIsValid($token)
     {
         if (empty($token)) {
             return false;
